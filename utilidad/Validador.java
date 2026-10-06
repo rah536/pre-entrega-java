@@ -23,5 +23,9 @@ public class Validador {
         }
     }
 
-
+    public static void validarId(int id){
+        if (id <= 0){
+            throw new IllegalArgumentException("El ID no puede ser cero o negativo.");
+        }
+    }
 }

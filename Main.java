@@ -1,6 +1,7 @@
 import java.util.Scanner;
 import servicio.ProductoServicio;
-
+import exception.ProductoNoEncontradoException;
+import exception.StockInsuficienteException;
 
 public class Main {
     public static void main(String[] args) {
@@ -24,33 +25,49 @@ public class Main {
             System.out.print("Elija una opción: ");
             
             opcion = scanner.nextInt();
+            scanner.nextLine(); //Limpia el buffer del enter luego de elegir una opción
 
-            switch (opcion) {
-                case 1:
-                    // Lógica para agregar
-                    // valido inputs y creo el producto
-                    ProductoServicio.guardar(scanner);
-                    break;
-                case 2:
-                    // Lógica para listar productos
-                    break;
-                case 3:
-                    // Lógica para buscar o actualizar
-                    break;
-                case 4:
-                    // Lógica para eliminar
-                    break;
-                case 5:
-                    // Lógica para crear
-                    break;
-                case 6:
-                    // Lógica para listar pedidos
-                    break;
-                case 7:
-                    System.out.println("Saliendo del sistema...");
-                    break;
-                default:
-                    System.out.println("Opción no válida. Por favor, elija una opción válida.");
+            try {
+                switch (opcion) {
+                    case 1:
+                        ProductoServicio.guardar(scanner);
+                        break;
+                    case 2:
+                        ProductoServicio.mostrarProductos(scanner);
+                        break;
+                    case 3:
+                        ProductoServicio.mostrarProducto(scanner);
+                        break;
+                    case 4:
+                        // Actualizar un producto
+                        ProductoServicio.actualizarProducto(scanner);
+                        break;
+                    case 5:
+                        // Eliminar un producto
+                        break;
+                    case 6:
+                        // Lógica para crear pedidos
+                        break;
+                    case 7:
+                        // Lógica para listar pedidos
+                        break;
+                    case 8:
+                        System.out.println("Saliendo del sistema...");
+                        break;
+                    default:
+                        System.out.println("Por favor, elija una opción válida.");
+                }
+
+            } catch (ProductoNoEncontradoException | StockInsuficienteException e) {
+                // capturamos las excepciones personalizadas
+                System.out.println(e.getMessage());
+            } catch (IllegalArgumentException e) {
+                // Validador de datos genericos invalidos
+                // (nombre,precio negativo,etc...)
+                System.out.println(e.getMessage());
+            } catch (java.util.InputMismatchException e) {
+                System.out.println("Error: Tipo de dato inválido. Por favor, ingrese un número.");
+                scanner.nextLine();
             }
 
         } while (opcion != 7);
