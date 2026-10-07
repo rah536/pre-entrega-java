@@ -39,7 +39,7 @@ public class ProductoServicio {
         contadorId++;
 
         listaProductos.add(prod);
-        ProductoServicio.mensajeProductoAgregadoExitoso(scanner);
+        operacionRealizadaconExito(scanner, 0);
 
         return null;
     }
@@ -48,14 +48,32 @@ public class ProductoServicio {
         return listaProductos;
     }
 
-    public static Void mensajeProductoAgregadoExitoso(Scanner scanner   ){
-        System.out.println("*****************************");
-        System.out.println("Producto agregado con éxito !");
-        System.out.println("*****************************");
-        System.out.println(" ");
-        System.out.println("Apretar Enter para continuar...");
-
-        scanner.nextLine();
+    public static Void operacionRealizadaconExito(Scanner scanner, int a){
+        
+        if (a == 0){
+            System.out.println("*****************************");
+            System.out.println("Producto agregado con éxito !");
+            System.out.println("*****************************");
+            System.out.println(" ");
+            System.out.println("Apretar Enter para continuar...");
+            scanner.nextLine();
+        }
+        else if (a == 1){
+            System.out.println("*****************************");
+            System.out.println("Producto actualizado con éxito !");
+            System.out.println("*****************************");
+            System.out.println(" ");
+            System.out.println("Apretar Enter para continuar...");
+            scanner.nextLine();
+        }
+        else if (a == 2){
+            System.out.println("*****************************");
+            System.out.println("Producto eliminado con éxito !");
+            System.out.println("*****************************");
+            System.out.println(" ");
+            System.out.println("Apretar Enter para continuar...");
+            scanner.nextLine();
+        }
 
         return null;
     }
@@ -103,7 +121,7 @@ public class ProductoServicio {
         System.out.print("Ingrese el ID del producto: ");
         int id = scanner.nextInt();
         Validador.validarId(id);
-        scanner.nextLine(); // Limpia el buffer
+        scanner.nextLine();
 
         for (Producto producto : listaProductos) {
             if (producto.getId() == id) {
@@ -118,11 +136,33 @@ public class ProductoServicio {
 
         if (producto == null) {
             System.out.println("No se encontró el producto con el ID proporcionado.");
+            System.out.println("Apretar Enter para continuar...");
+            scanner.nextLine();
+            return null;
+        }
+        Producto prod = new Producto();
+        prod = validarProducto(scanner);//trae un producto con los datos validados
+        //seteo de los valores actualizados en el producto existente
+        producto.setNombre(prod.getNombre());
+        producto.setPrecio(prod.getPrecio());
+        producto.setStock(prod.getStock());
+
+        operacionRealizadaconExito(scanner, 1);
+        return null;
+    }
+
+    public static Void eliminarProducto(Scanner scanner){
+        Producto producto = buscarProductoPorId(scanner);
+        
+        if (producto == null) {
+            System.out.println("No se encontró el producto con el ID proporcionado.");
+            System.out.println("Apretar Enter para continuar...");
+            scanner.nextLine();
             return null;
         }
 
-        producto = validarProducto(scanner);
-
+        listaProductos.remove(producto);
+        operacionRealizadaconExito(scanner, 2);
+        return null;
     }
-
 }

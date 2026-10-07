@@ -16,11 +16,12 @@ public class Main {
             System.out.println("_____________________________");
             System.out.println("1. Agregar Producto");
             System.out.println("2. Listar Productos");
-            System.out.println("3. Buscar o Actualizar Producto");
-            System.out.println("4. Eliminar Producto");
-            System.out.println("5. Crear Pedido");
-            System.out.println("6. Listar Pedidos");
-            System.out.println("7. Salir");
+            System.out.println("3. Buscar Producto");
+            System.out.println("4. Actualizar Producto");
+            System.out.println("5. Eliminar Producto");
+            System.out.println("6. Crear Pedido");
+            System.out.println("7. Listar Pedidos");
+            System.out.println("8. Salir");
             System.out.println("'''''''''''''''''''''''''''''");
             System.out.print("Elija una opción: ");
             
@@ -39,11 +40,10 @@ public class Main {
                         ProductoServicio.mostrarProducto(scanner);
                         break;
                     case 4:
-                        // Actualizar un producto
                         ProductoServicio.actualizarProducto(scanner);
                         break;
                     case 5:
-                        // Eliminar un producto
+                        ProductoServicio.eliminarProducto(scanner);
                         break;
                     case 6:
                         // Lógica para crear pedidos
@@ -70,7 +70,7 @@ public class Main {
                 scanner.nextLine();
             }
 
-        } while (opcion != 7);
+        } while (opcion != 8);
 
         scanner.close();
     }
