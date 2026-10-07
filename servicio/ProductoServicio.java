@@ -161,8 +161,18 @@ public class ProductoServicio {
             return null;
         }
 
-        listaProductos.remove(producto);
-        operacionRealizadaconExito(scanner, 2);
+
+        //Esta seguro que desea eliminar el producto?
+        System.out.println("¿Está seguro que desea eliminar el producto " + producto.getId() + " - " + producto.getNombre() + "? (Confirmar con S, de lo contrario ingrese cualquier otra tecla)");
+        String confirmacion = scanner.nextLine().trim().toUpperCase();
+        if (confirmacion.equals("S")) {
+            listaProductos.remove(producto);
+            operacionRealizadaconExito(scanner, 2);
+        } else {
+            System.out.println("Operación cancelada.");
+            System.out.println("Apretar Enter para continuar...");
+            scanner.nextLine();
+        }
         return null;
     }
 }
